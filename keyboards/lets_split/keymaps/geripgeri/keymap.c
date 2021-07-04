@@ -19,7 +19,9 @@ enum custom_keycodes {
   CRY,
   NETRURAL,
   SCREAM,
-  THUMBSUP
+  THUMBSUP,
+  THINKING,
+  TADA
 };
 
 enum td_extra_keys {
@@ -77,17 +79,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                ,-----------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |                |   ^  |   &  |   *  |   (  |   )  |  =   |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
- * |  :)  |  :D  |  :'D |  :$  |  <3  |      |                | Home | Pgup |      |   {  |   }  |  |   |
+ * |  🙂  |   😄 |  😂  |   ☺️  |  ❤️   |  🎉  |                | Home | Pgup | Back |   {  |   }  |  |   |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
- * |  :(  |  :'( |  :|  |  :O  |  +1  |      |                | End  |Pgdown|      |   [  |   ]  |PrntSc|
+ * |  ☹️   |  😢  |  😐  |  😱  |  👍  |  🤔  |                | End  |Pgdown| Next |   [  |   ]  |PrntSc|
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
- * |      |      |      |      |      |Insert|                |  Del |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |      |Insert|                | Del  |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------'                `-----------------------------------------'
  */
 [_LOWER] = LAYOUT_ortho_4x12(
   KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC,          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_EQL,
-  SLIGHTLY, SMILE, JOY, RELAXED, HEART, _______,              KC_HOME, KC_PGUP, _______, KC_LCBR, KC_RCBR, KC_PIPE,
-  SAD, CRY, NETRURAL, SCREAM, THUMBSUP, _______,              KC_END, KC_PGDOWN,_______, KC_LBRC, KC_RBRC, KC_PSCREEN,
+  SLIGHTLY, SMILE, JOY, RELAXED, HEART, TADA,                 KC_HOME, KC_PGUP, KC_WBAK, KC_LCBR, KC_RCBR, KC_PIPE,
+  SAD, CRY, NETRURAL, SCREAM, THUMBSUP, THINKING,             KC_END,  KC_PGDOWN, KC_WFWD, KC_LBRC, KC_RBRC, KC_PSCREEN,
   _______, _______, _______, _______, _______, KC_INSERT,     KC_DEL, _______,  TD(NEXTPREV), KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
@@ -97,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |                |      |      |      |   <  |   >  |   +  |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                |      |      |      |      |      |      |
  * `-----------------------------------------'                `-----------------------------------------'
@@ -105,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_ortho_4x12(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,         KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,       _______, _______, _______, KC_LABK, KC_RABK, KC_PPLS,
   _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______
 ),
 
@@ -243,6 +245,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case THUMBSUP:
       if(record->event.pressed) {
 	SEND_STRING(":+1:");
+      }
+      break;
+    case THINKING:
+      if(record->event.pressed) {
+	SEND_STRING(":thinking_face:");
+      }
+      break;
+    case TADA:
+      if(record->event.pressed) {
+	SEND_STRING(":tada:");
       }
       break;
     default:
